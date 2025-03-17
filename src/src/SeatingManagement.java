@@ -4,6 +4,11 @@ public class SeatingManagement {
     private List<Seat> seats;
 
 
+    public SeatingManagement(List<Seat> seats){
+        this.seats = seats;
+    }
+
+
     public void allocateSeat(Guest guest, Seat seat){
 
     }
