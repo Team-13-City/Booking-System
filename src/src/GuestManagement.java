@@ -1,0 +1,16 @@
+import java.util.List;
+
+public class GuestManagement {
+
+    private List<Guest> guests;
+
+    public void validateTicket(Ticket ticket){
+
+    }
+    public void assignSeat(Guest guest){
+
+    }
+    public void handleVIPGuest(Guest guest){
+
+    }
+}
