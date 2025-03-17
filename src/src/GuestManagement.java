@@ -4,6 +4,10 @@ public class GuestManagement {
 
     private List<Guest> guests;
 
+    public GuestManagement(List<Guest> guests){
+        this.guests = guests;
+    }
+
     public void validateTicket(Ticket ticket){
 
     }
