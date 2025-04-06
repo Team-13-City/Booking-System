@@ -1,3 +1,4 @@
+package com.example.bookingsystem;
 import java.util.List;
 
 public class RevenueSystem {
