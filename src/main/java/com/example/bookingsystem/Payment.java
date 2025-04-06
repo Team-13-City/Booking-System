@@ -1,3 +1,5 @@
+package com.example.bookingsystem;
+
 public class Payment {
 
     private String paymentID;

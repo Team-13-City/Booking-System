@@ -1,4 +1,5 @@
-import java.time.*;
+package com.example.bookingsystem;
+import java.time.LocalDateTime;
 
 public class Event {
     private String eventID;

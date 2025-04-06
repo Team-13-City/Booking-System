@@ -1,3 +1,5 @@
+package com.example.bookingsystem;
+
 public class OnlineBookingAPI {
 
     public void syncWithExternalPlatform(){
