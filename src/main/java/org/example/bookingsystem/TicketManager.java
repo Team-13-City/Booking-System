@@ -17,7 +17,7 @@ public class TicketManager {
 
     }
 
-    List<Ticket> getTicketsByUser(User user) {
+    List<Ticket> getTicketsByCustomer(Customer customer) {
 
     }
 
