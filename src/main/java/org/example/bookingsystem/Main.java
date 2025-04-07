@@ -196,15 +196,29 @@ public class Main extends Application {
         grid.add(processBtn, 1, 5);
 
         processBtn.setOnAction(e -> {
+            // Validate that the amount field is not empty.
+            String amountText = amountField.getText().trim();
+            if (amountText.isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Amount is required.", ButtonType.OK);
+                alert.showAndWait();
+                return;
+            }
+            double amount;
+            try {
+                amount = Double.parseDouble(amountText);
+            } catch (NumberFormatException ex) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Please enter a valid number for the amount.", ButtonType.OK);
+                alert.showAndWait();
+                return;
+            }
             PaymentInfo info = new PaymentInfo();
             info.cardNumber = cardField.getText();
             info.expiryDate = expiryField.getText();
             info.cvv = cvvField.getText();
             info.billingAddress = billingField.getText();
-            double amount = Double.parseDouble(amountField.getText());
             PaymentResult result = PaymentService.processPayment(info, amount);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            if(result.success) {
+            if (result.success) {
                 alert.setHeaderText("Payment Successful");
                 alert.setContentText("Transaction ID: " + result.transactionID);
             } else {
