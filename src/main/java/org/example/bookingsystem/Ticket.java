@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 public class Ticket {
     String ticketID;
     Event event;
-    User user;
+    Customer customer;
     Seat seat;
     double price;
     enum status {ACTIVE, CANCELLED, REFUNDED};
