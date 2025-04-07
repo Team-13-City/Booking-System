@@ -1,33 +1,27 @@
 package org.example.bookingsystem;
 
-import java.util.*;
+import javafx.beans.property.*;
 
 public class Venue {
-    String venueID;
-    String name;
-    int capacity;
-    Map<String, Seat> layout; // seatID -> Seat
+    private IntegerProperty venueId;
+    private StringProperty name;
+    private IntegerProperty capacity;
 
-    public Seat getSeat(String seatID) {
-        return layout.get(seatID);
+    public Venue(int venueId, String name, int capacity) {
+        this.venueId = new SimpleIntegerProperty(venueId);
+        this.name = new SimpleStringProperty(name);
+        this.capacity = new SimpleIntegerProperty(capacity);
     }
 
-    public List<Seat> getAllSeats() {
-        return new ArrayList<>(layout.values());
-    }
+    public int getVenueId() { return venueId.get(); }
+    public void setVenueId(int venueId) { this.venueId.set(venueId); }
+    public IntegerProperty venueIdProperty() { return venueId; }
 
-    public List<Seat> getAccessibleSeats() {
-        List<Seat> accessibleSeats = new ArrayList<>();
-        for (Seat seat : layout.values()) {
-            if (seat.isAccessable) {
-                accessibleSeats.add(seat);
-            }
-        }
-        return accessibleSeats;
-    }
+    public String getName() { return name.get(); }
+    public void setName(String name) { this.name.set(name); }
+    public StringProperty nameProperty() { return name; }
 
-    public double getBasePrice() {
-        // Placeholder: pricing can be dynamic per venue or hardcoded
-        return 15.0;
-    }
+    public int getCapacity() { return capacity.get(); }
+    public void setCapacity(int capacity) { this.capacity.set(capacity); }
+    public IntegerProperty capacityProperty() { return capacity; }
 }

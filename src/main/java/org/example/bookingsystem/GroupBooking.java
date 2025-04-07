@@ -1,29 +1,46 @@
 package org.example.bookingsystem;
 
+import javafx.beans.property.*;
 import java.time.LocalDate;
-import java.util.*;
 
 public class GroupBooking {
-    String groupID;
-    Event event;
-    int size;
-    List<String> seatPreferences;
-    String paymentStatus;
+    private IntegerProperty groupId;
+    private IntegerProperty eventId;
+    private IntegerProperty size;
+    private StringProperty seatPreferences;
+    private StringProperty paymentStatus;
+    private ObjectProperty<LocalDate> deadline;
 
-    public boolean isConfirmed() {
-        return paymentStatus != null && paymentStatus.equalsIgnoreCase("CONFIRMED");
+    public GroupBooking(int groupId, int eventId, int size, String seatPreferences, String paymentStatus, LocalDate deadline) {
+        this.groupId = new SimpleIntegerProperty(groupId);
+        this.eventId = new SimpleIntegerProperty(eventId);
+        this.size = new SimpleIntegerProperty(size);
+        this.seatPreferences = new SimpleStringProperty(seatPreferences);
+        this.paymentStatus = new SimpleStringProperty(paymentStatus);
+        this.deadline = new SimpleObjectProperty<>(deadline);
     }
 
-    public void assignSeats(List<Seat> availableSeats) {
-        // Assign preferred seats from seatPreferences if available
-        int assigned = 0;
-        for (String preferredSeatID : seatPreferences) {
-            if (assigned >= size) break;
-            Seat seat = event.venue.getSeat(preferredSeatID);
-            if (seat != null && seat.isAvailable()) {
-                seat.markReserved();
-                assigned++;
-            }
-        }
-    }
+    public int getGroupId() { return groupId.get(); }
+    public void setGroupId(int groupId) { this.groupId.set(groupId); }
+    public IntegerProperty groupIdProperty() { return groupId; }
+
+    public int getEventId() { return eventId.get(); }
+    public void setEventId(int eventId) { this.eventId.set(eventId); }
+    public IntegerProperty eventIdProperty() { return eventId; }
+
+    public int getSize() { return size.get(); }
+    public void setSize(int size) { this.size.set(size); }
+    public IntegerProperty sizeProperty() { return size; }
+
+    public String getSeatPreferences() { return seatPreferences.get(); }
+    public void setSeatPreferences(String seatPreferences) { this.seatPreferences.set(seatPreferences); }
+    public StringProperty seatPreferencesProperty() { return seatPreferences; }
+
+    public String getPaymentStatus() { return paymentStatus.get(); }
+    public void setPaymentStatus(String paymentStatus) { this.paymentStatus.set(paymentStatus); }
+    public StringProperty paymentStatusProperty() { return paymentStatus; }
+
+    public LocalDate getDeadline() { return deadline.get(); }
+    public void setDeadline(LocalDate deadline) { this.deadline.set(deadline); }
+    public ObjectProperty<LocalDate> deadlineProperty() { return deadline; }
 }
