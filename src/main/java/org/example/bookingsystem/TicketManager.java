@@ -1,14 +1,18 @@
 package org.example.bookingsystem;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.*;
 
 public class TicketManager {
     List<Ticket> tickets = new ArrayList<>();
 
-    public Ticket sellTicket(Customer customer, Event event, Seat seat, Discount discount) {
-        Ticket ticket = new Ticket();
-        ticket.ticketID = UUID.randomUUID().toString();
+    public Ticket sellTicket(int customerID, String event, int price, int seat_id) {
+        /*Ticket ticket = new Ticket();
+        //ticket.ticketID = UUID.randomUUID().toString();
         ticket.customer = customer;
         ticket.event = event;
         ticket.seat = seat;
@@ -16,48 +20,71 @@ public class TicketManager {
         ticket.status = Ticket.Status.ACTIVE;
         ticket.purchaseDate = LocalDateTime.now();
         seat.markReserved();
-        tickets.add(ticket);
-        return ticket;
+        tickets.add(ticket); */
+        LocalDateTime purchaseDate = LocalDateTime.now();
+        String query = "INSERT INTO tickets (\n" +
+                "    event,\n" +
+                "    customer_id,\n" +
+                "    seat_id,\n" +
+                "    price,\n" +
+                "    status\n" +
+                ") VALUES (" + seat_id + ",\n" + event + ",\n" + seat_id + ",\n" + price + ");";
+        try (
+                Connection con = DatabaseManager.getConnection();
+                PreparedStatement ps = con.prepareStatement(query);
+                ResultSet rs = ps.executeQuery()
+        ) {
+            while (rs.next()) {
+                System.out.println(rs.getString(1));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return new Ticket(event, customerID, seat_id, price);
     }
 
-    public boolean cancelTicket(String ticketID) {
+    public boolean cancelTicket(int ticketID) {
         for (Ticket t : tickets) {
-            if (t.ticketID.equals(ticketID) && t.status == Ticket.Status.ACTIVE) {
-                t.status = Ticket.Status.CANCELLED;
-                t.seat.markReleased();
+            if (t.ticketID==ticketID) {
+                String query = "DELETE FROM tickets\n" +
+                        "WHERE ticket_id = " + ticketID;
+
+                try (
+                        Connection con = DatabaseManager.getConnection();
+                        PreparedStatement ps = con.prepareStatement(query);
+                        ResultSet rs = ps.executeQuery()
+                ) {
+                    while (rs.next()) {
+                        System.out.println(rs.getString(1));
+                    }
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+                tickets.remove(t);
                 return true;
             }
         }
         return false;
     }
 
-    public boolean refundTicket(String ticketID) {
-        for (Ticket t : tickets) {
-            if (t.ticketID.equals(ticketID) && t.status == Ticket.Status.CANCELLED) {
-                t.status = Ticket.Status.REFUNDED;
-                return true;
-            }
-        }
-        return false;
-    }
 
-    public List<Ticket> getTicketsByCustomer(Customer customer) {
-        List<Ticket> result = new ArrayList<>();
-        for (Ticket t : tickets) {
-            if (t.customer.equals(customer)) {
-                result.add(t);
-            }
-        }
-        return result;
-    }
+    public Ticket getTicket(int tid){
+        String query = "SELECT * FROM tickets \n" +
+                "WHERE ticket_id == " + tid + ";";
 
-    public List<Ticket> getTicketsByEvent(Event event) {
-        List<Ticket> result = new ArrayList<>();
-        for (Ticket t : tickets) {
-            if (t.event.equals(event)) {
-                result.add(t);
+        try (
+                Connection con = DatabaseManager.getConnection();
+                PreparedStatement ps = con.prepareStatement(query);
+                ResultSet rs = ps.executeQuery()
+        ) {
+            while (rs.next()) {
+                Ticket ticket = new Ticket(rs.getString("event"),
+                        rs.getInt("customer_id"),
+                        rs.getInt("seatID"),
+                        rs.getInt("price"));
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-        return result;
     }
 }
