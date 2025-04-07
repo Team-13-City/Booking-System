@@ -15,6 +15,6 @@ public class Discount {
     }
 
     double applyTo(double originalPrice) {
-        
+
     }
 }

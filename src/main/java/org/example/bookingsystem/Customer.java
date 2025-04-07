@@ -1,19 +1,19 @@
 package org.example.bookingsystem;
 
-import java.util.List;
+import java.util.*;
 
 public class Customer {
     String userID;
     String name;
     String email;
     Boolean fol; // Friends of Lancaster
-    List<Ticket> bookingHistory;
+    List<Ticket> bookingHistory = new ArrayList<>();
 
-    boolean isFol() {
+    public boolean isFol() {
         return fol;
     }
 
-    List<Ticket> getBookingHistory() {
+    public List<Ticket> getBookingHistory() {
         return bookingHistory;
     }
 }
