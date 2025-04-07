@@ -14,4 +14,5 @@ module org.example.bookingsystem {
 
     opens org.example.bookingsystem to javafx.fxml;
     exports org.example.bookingsystem;
+    exports org.example.bookingsystem.ui;
 }
