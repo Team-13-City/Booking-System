@@ -17,8 +17,10 @@ public class TicketManager {
 
     }
 
-    List<Ticket> getTicketsByUser(User user) {
+    List<Ticket> getTicketsByCustomer(Customer customer) {
 
+
+        return customer.getBookingHistory();
     }
 
     List<Ticket> getTicketsByEvent(Event event) {
