@@ -85,12 +85,17 @@ public class HelloController {
 
         StringBuilder bookingDetails = new StringBuilder("Your Bookings:\n\n");
         for (Booking booking : bookings) {
+            String email = booking.getEmail();
+            if (email.matches("^[\\w.-]+@(?:gmail\\.com|abv\\.com)$") ) {
             bookingDetails.append("Event: ").append(booking.getEvent()).append("\n")
                     .append("Date: ").append(booking.getDate()).append("\n")
                     .append("Tickets: ").append(booking.getNumberOfTickets()).append("\n")
                     .append("Name: ").append(booking.getName()).append("\n")
                     .append("Email: ").append(booking.getEmail()).append("\n\n");
-        }
+            } else {
+                bookingDetails.append("Invalid email for booking: ").append(email).append("\n\n");
+            }
+            } 
 
         showAlert("Your Bookings", bookingDetails.toString());
     }
