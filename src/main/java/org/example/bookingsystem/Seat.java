@@ -1,3 +1,4 @@
+package org.example.bookingsystem;
 public class Seat {
 
     private String seatNumber;

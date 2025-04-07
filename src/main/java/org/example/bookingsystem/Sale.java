@@ -1,3 +1,4 @@
+package org.example.bookingsystem;
 import java.time.*;
 
 public class Sale {

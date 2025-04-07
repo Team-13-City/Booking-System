@@ -1,3 +1,5 @@
+package org.example.bookingsystem;
+
 public class Ticket {
 
     private String ticketID;

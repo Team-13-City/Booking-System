@@ -1,3 +1,4 @@
+package org.example.bookingsystem;
 public class Guest {
 
     private String guestID;
