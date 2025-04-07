@@ -9,7 +9,6 @@ public class GroupBooking {
     int size;
     List<String> seatPreferences;
     String paymentStatus;
-    LocalDate deadline;
 
     public boolean isConfirmed() {
         return paymentStatus != null && paymentStatus.equalsIgnoreCase("CONFIRMED");
