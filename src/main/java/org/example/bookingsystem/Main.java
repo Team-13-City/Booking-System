@@ -1,3 +1,7 @@
+package org.example.bookingsystem;
+
+import org.example.bookingsystem.DatabaseManager;
+
 import java.sql.*;
 
 
