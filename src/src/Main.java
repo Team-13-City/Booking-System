@@ -3,7 +3,7 @@ import java.sql.*;
 
 public class Main {
     public static void main(String[] args) {
-        String query = "SELECT * FROM 'Testing'";
+        String query = "SELECT * FROM `Testing`";
 
         try (
                 Connection con = DatabaseManager.getConnection();
