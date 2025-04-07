@@ -4,20 +4,20 @@ public class Seat {
     String seatID;
     boolean isReserved;
     boolean isAccessable;
-    enum veiwQuality {GOOD, RESTRICTED};
-
+    enum ViewQuality { GOOD, RESTRICTED }
+    ViewQuality viewQuality;
 
     public boolean isAvailable() {
         return !isReserved;
     }
 
-    void markReserved() {
+    public void markReserved() {
         isReserved = true;
-        // set this in the database
+        // Update DB if needed
     }
 
-    void markReleased() {
+    public void markReleased() {
         isReserved = false;
-        // set this in the database
+        // Update DB if needed
     }
 }

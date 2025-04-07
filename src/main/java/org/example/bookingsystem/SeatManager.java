@@ -1,16 +1,33 @@
 package org.example.bookingsystem;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class SeatManager {
-    Map<Integer, List<Seat>> eventSeatMap; // eventID -> seats
+    Map<String, List<Seat>> eventSeatMap = new HashMap<>();
 
-    boolean reserveSeat (Event event, int seatID) {
-
+    public boolean reserveSeat(Event event, String seatID) {
+        List<Seat> seats = eventSeatMap.get(event.eventID);
+        if (seats != null) {
+            for (Seat seat : seats) {
+                if (seat.seatID.equals(seatID) && seat.isAvailable()) {
+                    seat.markReserved();
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
-    boolean releaseSeat (Event event, int seatID) {
-
+    public boolean releaseSeat(Event event, String seatID) {
+        List<Seat> seats = eventSeatMap.get(event.eventID);
+        if (seats != null) {
+            for (Seat seat : seats) {
+                if (seat.seatID.equals(seatID) && !seat.isAvailable()) {
+                    seat.markReleased();
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

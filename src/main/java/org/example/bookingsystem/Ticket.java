@@ -8,6 +8,7 @@ public class Ticket {
     Customer customer;
     Seat seat;
     double price;
-    enum status {ACTIVE, CANCELLED, REFUNDED};
+    enum Status { ACTIVE, CANCELLED, REFUNDED }
+    Status status;
     LocalDateTime purchaseDate;
 }

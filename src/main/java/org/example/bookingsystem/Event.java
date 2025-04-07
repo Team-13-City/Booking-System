@@ -10,12 +10,15 @@ public class Event {
     String layoutType;
     boolean isOpenToPublic;
 
-    boolean isCloseToPublic() {
-        return isOpenToPublic;
-    };
+    public boolean isCloseToPublic() {
+        return !isOpenToPublic;
+    }
 
-    void updateEventDetails() {
-
+    public void updateEventDetails(String newTitle, LocalDateTime newDateTime, Venue newVenue, String newLayout, boolean isOpen) {
+        this.title = newTitle;
+        this.dateTime = newDateTime;
+        this.venue = newVenue;
+        this.layoutType = newLayout;
+        this.isOpenToPublic = isOpen;
     }
 }
-
