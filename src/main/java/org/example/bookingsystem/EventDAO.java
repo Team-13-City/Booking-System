@@ -1,11 +1,29 @@
+/**
+ * Data Access Object (DAO) for managing event data in the database.
+ * Provides methods for CRUD operations on events.
+ */
 package org.example.bookingsystem;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A class that handles all database operations related to events.
+ * Implements the Data Access Object pattern for event management.
+ */
 public class EventDAO {
+    /**
+     * Retrieves all events from the database.
+     *
+     * @return A list of all events in the database
+     */
     public static List<Event> getAllEvents() {
         List<Event> events = new ArrayList<>();
         String sql = "SELECT * FROM events";
@@ -28,6 +46,11 @@ public class EventDAO {
         return events;
     }
 
+    /**
+     * Adds a new event to the database.
+     *
+     * @param event The event to be added
+     */
     public static void addEvent(Event event) {
         String sql = "INSERT INTO events (title, date_time, venue_id, layout_type, is_public) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = DatabaseManager.getConnection();
@@ -48,6 +71,11 @@ public class EventDAO {
         }
     }
 
+    /**
+     * Updates an existing event in the database.
+     *
+     * @param event The event with updated information
+     */
     public static void updateEvent(Event event) {
         String sql = "UPDATE events SET title = ?, date_time = ?, venue_id = ?, layout_type = ?, is_public = ? WHERE event_id = ?";
         try (Connection conn = DatabaseManager.getConnection();
@@ -64,6 +92,11 @@ public class EventDAO {
         }
     }
 
+    /**
+     * Deletes an event from the database.
+     *
+     * @param eventId The ID of the event to be deleted
+     */
     public static void deleteEvent(int eventId) {
         String sql = "DELETE FROM events WHERE event_id = ?";
         try (Connection conn = DatabaseManager.getConnection();

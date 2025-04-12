@@ -1,11 +1,29 @@
+/**
+ * Data Access Object (DAO) for managing group booking data in the database.
+ * Provides methods for CRUD operations on group bookings.
+ */
 package org.example.bookingsystem;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A class that handles all database operations related to group bookings.
+ * Implements the Data Access Object pattern for group booking management.
+ */
 public class GroupBookingDAO {
+    /**
+     * Retrieves all group bookings from the database.
+     *
+     * @return A list of all group bookings in the database
+     */
     public static List<GroupBooking> getAllGroupBookings() {
         List<GroupBooking> bookings = new ArrayList<>();
         String sql = "SELECT * FROM group_bookings";
@@ -28,6 +46,11 @@ public class GroupBookingDAO {
         return bookings;
     }
 
+    /**
+     * Adds a new group booking to the database.
+     *
+     * @param booking The group booking to be added
+     */
     public static void addGroupBooking(GroupBooking booking) {
         String sql = "INSERT INTO group_bookings (event_id, size, seat_preferences, payment_status, deadline) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = DatabaseManager.getConnection();
@@ -48,6 +71,11 @@ public class GroupBookingDAO {
         }
     }
 
+    /**
+     * Updates an existing group booking in the database.
+     *
+     * @param booking The group booking with updated information
+     */
     public static void updateGroupBooking(GroupBooking booking) {
         String sql = "UPDATE group_bookings SET event_id = ?, size = ?, seat_preferences = ?, payment_status = ?, deadline = ? WHERE group_id = ?";
         try (Connection conn = DatabaseManager.getConnection();
@@ -64,6 +92,11 @@ public class GroupBookingDAO {
         }
     }
 
+    /**
+     * Deletes a group booking from the database.
+     *
+     * @param groupId The ID of the group booking to be deleted
+     */
     public static void deleteGroupBooking(int groupId) {
         String sql = "DELETE FROM group_bookings WHERE group_id = ?";
         try (Connection conn = DatabaseManager.getConnection();
