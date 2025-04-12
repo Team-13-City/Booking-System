@@ -1,20 +1,49 @@
+/**
+ * The main application class for the Booking System.
+ * This class extends JavaFX Application and provides the user interface
+ * for managing customers, events, tickets, group bookings, and venues.
+ */
 package org.example.bookingsystem;
-
-import javafx.application.Application;
-import javafx.geometry.Insets;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.*;
-import javafx.stage.Stage;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToolBar;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+
+/**
+ * The main application class that extends JavaFX Application.
+ * Provides a tabbed interface for managing different aspects of the booking system.
+ */
 public class Main extends Application {
 
+    /** The main tab pane that contains all the system's tabs */
     private TabPane tabPane;
 
+    /**
+     * Initializes and starts the JavaFX application.
+     * Sets up the main window with tabs for different management sections.
+     *
+     * @param primaryStage The primary stage for this application
+     */
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Booking System - Employee Dashboard");
@@ -36,7 +65,12 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    // Customers pane (as previously implemented)
+    /**
+     * Creates and returns a pane for managing customers.
+     * Includes a table view of customers and buttons for CRUD operations.
+     *
+     * @return A BorderPane containing the customer management interface
+     */
     private BorderPane createCustomerPane() {
         BorderPane pane = new BorderPane();
         TableView<Customer> tableView = new TableView<>();
@@ -167,7 +201,12 @@ public class Main extends Application {
         return pane;
     }
 
-    // Events pane
+    /**
+     * Creates and returns a pane for managing events.
+     * Includes a table view of events and buttons for CRUD operations.
+     *
+     * @return A BorderPane containing the event management interface
+     */
     private BorderPane createEventPane() {
         BorderPane pane = new BorderPane();
         TableView<Event> tableView = new TableView<>();
@@ -314,7 +353,12 @@ public class Main extends Application {
         return pane;
     }
 
-    // Tickets pane
+    /**
+     * Creates and returns a pane for managing tickets.
+     * Includes a table view of tickets and buttons for CRUD operations.
+     *
+     * @return A BorderPane containing the ticket management interface
+     */
     private BorderPane createTicketPane() {
         BorderPane pane = new BorderPane();
         TableView<Ticket> tableView = new TableView<>();
@@ -477,7 +521,12 @@ public class Main extends Application {
         return pane;
     }
 
-    // Group Bookings pane
+    /**
+     * Creates and returns a pane for managing group bookings.
+     * Includes a table view of group bookings and buttons for CRUD operations.
+     *
+     * @return A BorderPane containing the group booking management interface
+     */
     private BorderPane createGroupBookingPane() {
         BorderPane pane = new BorderPane();
         TableView<GroupBooking> tableView = new TableView<>();
@@ -626,7 +675,12 @@ public class Main extends Application {
         return pane;
     }
 
-    // Venues pane
+    /**
+     * Creates and returns a pane for managing venues.
+     * Includes a table view of venues and buttons for CRUD operations.
+     *
+     * @return A BorderPane containing the venue management interface
+     */
     private BorderPane createVenuePane() {
         BorderPane pane = new BorderPane();
         TableView<Venue> tableView = new TableView<>();
@@ -735,12 +789,22 @@ public class Main extends Application {
         return pane;
     }
 
-    // Utility methods for alerts and confirmations
+    /**
+     * Displays an alert dialog with the specified message.
+     *
+     * @param message The message to display in the alert
+     */
     private void showAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION, message, ButtonType.OK);
         alert.showAndWait();
     }
 
+    /**
+     * Shows a confirmation dialog for deletion operations.
+     *
+     * @param entity The type of entity being deleted (e.g., "customer", "event")
+     * @return true if the user confirms the deletion, false otherwise
+     */
     private boolean confirmDeletion(String entity) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
                 "Are you sure you want to delete this " + entity + "?", ButtonType.YES, ButtonType.NO);
@@ -748,6 +812,11 @@ public class Main extends Application {
         return alert.getResult() == ButtonType.YES;
     }
 
+    /**
+     * The main entry point for the application.
+     *
+     * @param args Command line arguments
+     */
     public static void main(String[] args) {
         launch(args);
     }

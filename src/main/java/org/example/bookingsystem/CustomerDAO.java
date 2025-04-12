@@ -1,12 +1,28 @@
+/**
+ * Data Access Object (DAO) for managing customer data in the database.
+ * Provides methods for CRUD operations on customers.
+ */
 package org.example.bookingsystem;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A class that handles all database operations related to customers.
+ * Implements the Data Access Object pattern for customer management.
+ */
 public class CustomerDAO {
 
-    // Retrieve all customer records from the database
+    /**
+     * Retrieves all customers from the database.
+     *
+     * @return A list of all customers in the database
+     */
     public static List<Customer> getAllCustomers() {
         List<Customer> customers = new ArrayList<>();
         String sql = "SELECT * FROM customer";
@@ -28,7 +44,11 @@ public class CustomerDAO {
         return customers;
     }
 
-    // Insert a new customer into the database
+    /**
+     * Adds a new customer to the database.
+     *
+     * @param customer The customer to be added
+     */
     public static void addCustomer(Customer customer) {
         String sql = "INSERT INTO customer (name, email, role, friends_of_landcaster) VALUES (?, ?, ?, ?)";
         try (Connection conn = DatabaseManager.getConnection();
@@ -48,7 +68,11 @@ public class CustomerDAO {
         }
     }
 
-    // Update an existing customer record
+    /**
+     * Updates an existing customer in the database.
+     *
+     * @param customer The customer with updated information
+     */
     public static void updateCustomer(Customer customer) {
         String sql = "UPDATE customer SET name = ?, email = ?, role = ?, friends_of_landcaster = ? WHERE customer_id = ?";
         try (Connection conn = DatabaseManager.getConnection();
@@ -64,7 +88,11 @@ public class CustomerDAO {
         }
     }
 
-    // Delete a customer record from the database
+    /**
+     * Deletes a customer from the database.
+     *
+     * @param customerId The ID of the customer to be deleted
+     */
     public static void deleteCustomer(int customerId) {
         String sql = "DELETE FROM customer WHERE customer_id = ?";
         try (Connection conn = DatabaseManager.getConnection();

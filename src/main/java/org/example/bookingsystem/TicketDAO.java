@@ -1,11 +1,29 @@
+/**
+ * Data Access Object (DAO) for managing ticket data in the database.
+ * Provides methods for CRUD operations on tickets.
+ */
 package org.example.bookingsystem;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A class that handles all database operations related to tickets.
+ * Implements the Data Access Object pattern for ticket management.
+ */
 public class TicketDAO {
+    /**
+     * Retrieves all tickets from the database.
+     *
+     * @return A list of all tickets in the database
+     */
     public static List<Ticket> getAllTickets() {
         List<Ticket> tickets = new ArrayList<>();
         String sql = "SELECT * FROM tickets";
@@ -29,6 +47,11 @@ public class TicketDAO {
         return tickets;
     }
 
+    /**
+     * Adds a new ticket to the database.
+     *
+     * @param ticket The ticket to be added
+     */
     public static void addTicket(Ticket ticket) {
         String sql = "INSERT INTO tickets (event_id, customer_id, seat_id, price, status, purchase_date) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection conn = DatabaseManager.getConnection();
@@ -50,6 +73,11 @@ public class TicketDAO {
         }
     }
 
+    /**
+     * Updates an existing ticket in the database.
+     *
+     * @param ticket The ticket with updated information
+     */
     public static void updateTicket(Ticket ticket) {
         String sql = "UPDATE tickets SET event_id = ?, customer_id = ?, seat_id = ?, price = ?, status = ?, purchase_date = ? WHERE ticket_id = ?";
         try (Connection conn = DatabaseManager.getConnection();
@@ -67,6 +95,11 @@ public class TicketDAO {
         }
     }
 
+    /**
+     * Deletes a ticket from the database.
+     *
+     * @param ticketId The ID of the ticket to be deleted
+     */
     public static void deleteTicket(int ticketId) {
         String sql = "DELETE FROM tickets WHERE ticket_id = ?";
         try (Connection conn = DatabaseManager.getConnection();

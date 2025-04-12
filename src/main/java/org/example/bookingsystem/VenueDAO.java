@@ -1,10 +1,27 @@
+/**
+ * Data Access Object (DAO) for managing venue data in the database.
+ * Provides methods for CRUD operations on venues.
+ */
 package org.example.bookingsystem;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A class that handles all database operations related to venues.
+ * Implements the Data Access Object pattern for venue management.
+ */
 public class VenueDAO {
+    /**
+     * Retrieves all venues from the database.
+     *
+     * @return A list of all venues in the database
+     */
     public static List<Venue> getAllVenues() {
         List<Venue> venues = new ArrayList<>();
         String sql = "SELECT * FROM venues";
@@ -23,6 +40,11 @@ public class VenueDAO {
         return venues;
     }
 
+    /**
+     * Adds a new venue to the database.
+     *
+     * @param venue The venue to be added
+     */
     public static void addVenue(Venue venue) {
         String sql = "INSERT INTO venues (name, capacity) VALUES (?, ?)";
         try (Connection conn = DatabaseManager.getConnection();
@@ -40,6 +62,11 @@ public class VenueDAO {
         }
     }
 
+    /**
+     * Updates an existing venue in the database.
+     *
+     * @param venue The venue with updated information
+     */
     public static void updateVenue(Venue venue) {
         String sql = "UPDATE venues SET name = ?, capacity = ? WHERE venue_id = ?";
         try (Connection conn = DatabaseManager.getConnection();
@@ -53,6 +80,11 @@ public class VenueDAO {
         }
     }
 
+    /**
+     * Deletes a venue from the database.
+     *
+     * @param venueId The ID of the venue to be deleted
+     */
     public static void deleteVenue(int venueId) {
         String sql = "DELETE FROM venues WHERE venue_id = ?";
         try (Connection conn = DatabaseManager.getConnection();
